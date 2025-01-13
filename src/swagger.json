@@ -1,0 +1,317 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Pick_UserAttributes.Exclude_keyofUserAttributes.id-or-createdAt-or-updatedAt__": {
+				"properties": {},
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_UserAttributes.id-or-createdAt-or-updatedAt_": {
+				"$ref": "#/components/schemas/Pick_UserAttributes.Exclude_keyofUserAttributes.id-or-createdAt-or-updatedAt__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"Partial_Pick_UserAttributes.id-or-createdAt-or-updatedAt__": {
+				"properties": {},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"UserCreationAttributes": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateUserRequest": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"phone",
+					"email",
+					"name"
+				],
+				"type": "object"
+			},
+			"LoginUser": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"phone"
+				],
+				"type": "object"
+			},
+			"CreateSpam": {
+				"properties": {
+					"comments": {
+						"type": "string"
+					},
+					"spamNumber": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"spamNumber"
+				],
+				"type": "object"
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "truecaller-backend-apis",
+		"version": "1.0.0",
+		"description": "Creating a Backend base so that i can start any new project without any hassle for creating the base.",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/register": {
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserCreationAttributes"
+								}
+							}
+						}
+					}
+				},
+				"description": "Create a new user",
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUserRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/login": {
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"200": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"description": "Create a new user",
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginUser"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/spam": {
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"description": "Create a new user",
+				"tags": [
+					"Spam"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateSpam"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/specific-search": {
+			"get": {
+				"operationId": "CreateUser",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {},
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"description": "Create a new user",
+				"tags": [
+					"Search"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "spamId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "userId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/search": {
+			"get": {
+				"operationId": "CreateUser",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"items": {
+												"properties": {
+													"phone": {
+														"type": "string"
+													},
+													"name": {
+														"type": "string"
+													},
+													"userId": {
+														"type": "number",
+														"format": "double"
+													}
+												},
+												"required": [
+													"phone",
+													"name",
+													"userId"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										{
+											"items": {
+												"properties": {
+													"phone": {
+														"type": "string"
+													},
+													"name": {},
+													"spamId": {
+														"type": "number",
+														"format": "double"
+													}
+												},
+												"required": [
+													"phone",
+													"name",
+													"spamId"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"description": "Create a new user",
+				"tags": [
+					"Search"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "searchString",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
